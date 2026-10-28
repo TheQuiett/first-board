@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: first-board
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/firstboard}
+    username: ${DB_USERNAME:firstboard}
+    password: ${DB_PASSWORD:firstboard}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.thequiett.firstboard
+  configuration:
+    map-underscore-to-camel-case: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

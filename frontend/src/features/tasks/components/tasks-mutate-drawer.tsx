@@ -29,6 +29,7 @@ type TaskMutateDrawerProps = {
   open: boolean
   onOpenChange: (open: boolean) => void
   currentRow?: Task
+  onSubmit?: (data: TaskForm) => Promise<unknown>
 }
 
 const formSchema = z.object({
@@ -37,12 +38,13 @@ const formSchema = z.object({
   label: z.string().min(1, 'Please select a label.'),
   priority: z.string().min(1, 'Please choose a priority.'),
 })
-type TaskForm = z.infer<typeof formSchema>
+export type TaskForm = z.infer<typeof formSchema>
 
 export function TasksMutateDrawer({
   open,
   onOpenChange,
   currentRow,
+  onSubmit: submit,
 }: TaskMutateDrawerProps) {
   const isUpdate = !!currentRow
 
@@ -56,11 +58,19 @@ export function TasksMutateDrawer({
     },
   })
 
-  const onSubmit = (data: TaskForm) => {
-    // do something with the form data
+  const onSubmit = async (data: TaskForm) => {
+    if (submit) {
+      try {
+        await submit(data)
+      } catch {
+        // keep the drawer open so the user can retry
+        return
+      }
+    } else {
+      showSubmittedData(data)
+    }
     onOpenChange(false)
     form.reset()
-    showSubmittedData(data)
   }
 
   return (
@@ -202,7 +212,11 @@ export function TasksMutateDrawer({
           <SheetClose asChild>
             <Button variant='outline'>Close</Button>
           </SheetClose>
-          <Button form='tasks-form' type='submit'>
+          <Button
+            form='tasks-form'
+            type='submit'
+            disabled={form.formState.isSubmitting}
+          >
             Save changes
           </Button>
         </SheetFooter>

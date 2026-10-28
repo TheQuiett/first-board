@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thequiett.firstboard.task.TaskMapper">
+
+    <select id="search" resultType="com.thequiett.firstboard.task.TaskResponse">
+        SELECT 'TASK-' || id AS id, title, status, label, priority
+        FROM tasks
+        <where>
+            <if test="request.keyword != null and request.keyword != ''">
+                AND (title ILIKE '%' || #{request.keyword} || '%' OR 'TASK-' || id ILIKE '%' || #{request.keyword} || '%')
+            </if>
+            <if test="request.statuses != null and !request.statuses.isEmpty()">
+                AND status IN
+                <foreach collection="request.statuses" item="v" open="(" separator="," close=")">#{v}</foreach>
+            </if>
+            <if test="request.priorities != null and !request.priorities.isEmpty()">
+                AND priority IN
+                <foreach collection="request.priorities" item="v" open="(" separator="," close=")">#{v}</foreach>
+            </if>
+            <if test="request.labels != null and !request.labels.isEmpty()">
+                AND label IN
+                <foreach collection="request.labels" item="v" open="(" separator="," close=")">#{v}</foreach>
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+</mapper>

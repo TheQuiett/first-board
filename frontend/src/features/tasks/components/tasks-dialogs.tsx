@@ -1,17 +1,29 @@
+import { toast } from 'sonner'
 import { showSubmittedData } from '@/lib/show-submitted-data'
 import { ConfirmDialog } from '@/components/confirm-dialog'
+import { useCreateTask } from '../api/tasks-api'
 import { TasksImportDialog } from './tasks-import-dialog'
 import { TasksMutateDrawer } from './tasks-mutate-drawer'
 import { useTasks } from './tasks-provider'
 
 export function TasksDialogs() {
   const { open, setOpen, currentRow, setCurrentRow } = useTasks()
+  const createTask = useCreateTask()
   return (
     <>
       <TasksMutateDrawer
         key='task-create'
         open={open === 'create'}
         onOpenChange={() => setOpen('create')}
+        onSubmit={async (data) => {
+          try {
+            const task = await createTask.mutateAsync(data)
+            toast.success(`Task ${task.id} has been created.`)
+          } catch (error) {
+            toast.error('Failed to create the task.')
+            throw error
+          }
+        }}
       />
 
       <TasksImportDialog

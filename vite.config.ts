@@ -17,6 +17,11 @@ export default defineConfig({
     outDir: path.resolve(__dirname, './dist'),
     emptyOutDir: true,
   },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8080',
+    },
+  },
   plugins: [
     tanstackRouter({
       target: 'react',

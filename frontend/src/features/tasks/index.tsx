@@ -4,11 +4,16 @@ import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
+import { useSearchTasks } from './api/tasks-api'
 import { TasksDialogs } from './components/tasks-dialogs'
 import { TasksPrimaryButtons } from './components/tasks-primary-buttons'
 import { TasksProvider } from './components/tasks-provider'
 import { TasksTable } from './components/tasks-table'
-import { tasks } from './data/tasks'
+
+function TasksList() {
+  const { data } = useSearchTasks()
+  return <TasksTable data={data ?? []} />
+}
 
 export function Tasks() {
   return (
@@ -30,7 +35,7 @@ export function Tasks() {
           </div>
           <TasksPrimaryButtons />
         </div>
-        <TasksTable data={tasks} />
+        <TasksList />
       </Main>
 
       <TasksDialogs />

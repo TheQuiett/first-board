@@ -2,7 +2,7 @@
 
 Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and accessibility in mind.
 
-![alt text](public/images/shadcn-admin.png)
+![alt text](frontend/public/images/shadcn-admin.png)
 
 [![Sponsored by Clerk](https://img.shields.io/badge/Sponsored%20by-Clerk-5b6ee1?logo=clerk)](https://go.clerk.com/GttUAaK)
 
@@ -53,7 +53,7 @@ If you want to update components using the Shadcn CLI (e.g., `npx shadcn@latest 
 
 - **Modified Components**: These have general updates, potentially including RTL adjustments.
 - **RTL Updated Components**: These have specific changes for RTL language support (e.g., layout, positioning).
-- For implementation details, check the source files in `src/components/ui/`.
+- For implementation details, check the source files in `frontend/src/components/ui/`.
 - All other Shadcn UI components in the project are standard and can be safely updated via the CLI.
 
 </details>

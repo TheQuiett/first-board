@@ -2,9 +2,9 @@ import type { KnipConfig } from 'knip'
 
 const config: KnipConfig = {
   ignore: [
-    'src/components/ui/**',
-    'src/components/layout/app-title.tsx',
-    'src/tanstack-table.d.ts',
+    'frontend/src/components/ui/**',
+    'frontend/src/components/layout/app-title.tsx',
+    'frontend/src/tanstack-table.d.ts',
   ],
 }
 

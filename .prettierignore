@@ -2,8 +2,8 @@
 /*
 
 # Except these files & folders
-!/src
-!index.html
+!/frontend
+!/backend
 !package.json
 !tailwind.config.js
 !tsconfig.json
@@ -16,4 +16,4 @@
 !.vscode/
 
 # Ignore auto generated routeTree.gen.ts
-/src/routeTree.gen.ts
+/frontend/src/routeTree.gen.ts

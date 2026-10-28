@@ -26,8 +26,11 @@ dist-ssr
 *.sln
 *.sw?
 
+# TanStack build artifacts
+.tanstack
+
 # Test coverage
-/coverage
+coverage
 
 # Vitest artifacts (browser screenshots/attachments)
 **/__screenshots__/

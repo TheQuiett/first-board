@@ -8,6 +8,15 @@ import { playwright } from '@vitest/browser-playwright'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Frontend sources live in ./frontend, backend sources in ./backend
+  root: path.resolve(__dirname, './frontend'),
+  // Keep .env files, caches and build output at the repository root
+  envDir: __dirname,
+  cacheDir: path.resolve(__dirname, './node_modules/.vite'),
+  build: {
+    outDir: path.resolve(__dirname, './dist'),
+    emptyOutDir: true,
+  },
   plugins: [
     tanstackRouter({
       target: 'react',
@@ -18,7 +27,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './frontend/src'),
     },
   },
   test: {
@@ -30,6 +39,7 @@ export default defineConfig({
       instances: [{ browser: 'chromium' }],
     },
     coverage: {
+      reportsDirectory: path.resolve(__dirname, './coverage'),
       // include: ['src/**/*.{js,jsx,ts,tsx}'], // Uncomment to expand the report to all src/**/* so untested modules appear as 0% coverage.
       exclude: [
         'src/components/ui/**',
